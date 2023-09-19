@@ -2,7 +2,7 @@ package com.aston.dao;
 
 import com.aston.entity.User;
 import com.aston.util.Queries;
-import jakarta.transaction.Transactional;
+import java.util.Collections;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +10,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@Transactional
+//@Repository
 public class UserDAO implements DAO<User> {
     private final SessionFactory sessionFactory;
 
-    @Autowired
+//    @Autowired
     public UserDAO(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     public boolean create(User user) {
-        try {
-            Session session = sessionFactory.getCurrentSession();
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             session.persist(user);
+            session.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +38,7 @@ public class UserDAO implements DAO<User> {
                     .getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return Collections.emptyList();
         }
     }
 

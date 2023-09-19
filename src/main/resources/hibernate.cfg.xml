@@ -9,6 +9,7 @@
         <property name="connection.password">postgres</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.show_sql">true</property>
+
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
 
         <mapping class="com.aston.entity.User"/>
