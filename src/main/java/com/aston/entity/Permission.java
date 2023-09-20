@@ -20,6 +20,15 @@ public class Permission {
     )
     private List<Role> roles;
 
+    public Permission() {
+    }
+
+    public Permission(Long id, String permissionName, List<Role> roles) {
+        this.id = id;
+        this.permissionName = permissionName;
+        this.roles = roles;
+    }
+
     public Long getId() {
         return id;
     }
